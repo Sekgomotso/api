@@ -3,7 +3,6 @@
 const express = require('express');
 const app = express();
 
-// let express json request body 
 app.use(express.json())
 
 const Pool = require("pg").Pool;
@@ -20,15 +19,13 @@ const pool = new Pool({
 
 pool.connect();
 
-// // create a 'GET' endpoint on default path
-// app.get('/', (req,res,next)=>{
-//     res.addNewVisitor.json({
-//         addNewVisitor: "ok"
-//     })
-// })
+app.get('/', (req,res,next)=>{
+    res.addNewVisitor.json({
+        addNewVisitor: "ok"
+    })
+})
 
-// create a 'POST' endpoint on default path 
-app.post('/', (req,res,next)=>{
+app.post('/', (req, res)=>{
 
     addNewVisitor(
          req.body.name,
