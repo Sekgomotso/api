@@ -1,6 +1,7 @@
 "use strict"
 
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 
 // app set up
@@ -15,18 +16,18 @@ app.use(bodyParser.urlencoded({ extended: false}));
 const Pool = require("pg").Pool;
 
 const pool = new Pool({
-    user: "user",
-    host: "localhost",
-    database: "prospective_umuzi_students",
-    password: "pass",
-    port: 5432
-  });
+  user: "user",
+  host: "localhost",
+  database: "prospective_umuzi_students",
+  password: "pass",
+  port: 5432
+});
   
-  pool.connect();
+pool.connect();
 
 // form route
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname + "/form.html"));
+    res.status(200).sendFile(path.join(__dirname + "/form.html"));
   });
 
 app.post('/new_visit', async (req, res) => {
@@ -48,8 +49,8 @@ app.post('/new_visit', async (req, res) => {
         time_of_visit: req.body.time,
         nameOfAssistant: req.body.assistant,
         comment: req.body.comment
-    })
-})
+    });
+});
 
 // create new visitor in the database
 const addNewVisitor = async(name, age, date, time, nameOfAssistant, comment) => {
@@ -68,6 +69,6 @@ const addNewVisitor = async(name, age, date, time, nameOfAssistant, comment) => 
     }
 };
 
-app.listen (3005, (req, res) => {
+const server = app.listen (3005, (req, res) => {
     console.log('server listening in port 3005')
 });
