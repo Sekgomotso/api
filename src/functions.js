@@ -13,7 +13,7 @@ const pool = new Pool({
     port: process.env.PORT
   });
 
-  pool.connect();
+pool.connect();
 
 // Save visitor into database
 const addNewVisitor = async(name, age, date, time, nameOfAssistant, comment) => {
@@ -51,7 +51,7 @@ const viewVisitors = async () => {
 const deleteVisitorId = async () => {
   try {
     query = pool.query(
-      "DELETE FROM Visitors WHERE id = ${id}", [46]);
+      "DELETE FROM Visitors WHERE id = ${id}", []);
 
 
       return query.rows
